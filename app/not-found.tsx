@@ -2,6 +2,7 @@
 
 import Link from 'next/link'
 import { FooterFlags } from '@/components/my/footer-flags';
+import React from "react";
 
 export default function NotFound() {
   const handleCopy = () => {
@@ -10,13 +11,13 @@ export default function NotFound() {
     alert("포고령 내용이 복사되었습니다.");
   };
   return (
-    <div className="min-h-screen bg-gray-100 py-10 px-5 flex flex-col items-center">
+    <div className="min-h-screen py-10 px-5 flex flex-col items-center">
 
       <div className="text-center text-red-600 hover:text-purple-700 text-4xl font-extrabold mb-6">
         <Link href={'/'}>404 not found</Link>
       </div>
 
-      <div className="max-w-3xl bg-white shadow-md rounded-md p-6">
+      <div className="max-w-3xl shadow-md rounded-md p-6">
         <h1 className="text-2xl font-bold text-center mb-4" onClick={handleCopy}>계엄사령부 포고령(제1호)</h1>
         <p className="text-sm text-gray-600 mb-6 text-center">
           2024년 12월 3일 23:00부로 대한민국 전역에 다음 사항을 포고합니다.
@@ -60,7 +61,6 @@ export default function NotFound() {
 
       <FooterFlags />
     </div>
-
 
   )
 }

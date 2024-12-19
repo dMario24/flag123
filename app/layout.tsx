@@ -6,7 +6,7 @@ import TriggerAnalytics from './TriggerAnalytics'
 import { Analytics } from "@vercel/analytics/react"
 import { Toaster } from "@/components/ui/toaster"
 import { SpeedInsights } from "@vercel/speed-insights/next"
-
+import { NextThemeProvider } from '@/components/theme-provider';
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -83,19 +83,21 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="ko">
+    return (
+    <html lang="ko" >
       <GoogleTagManager gtmId="GTM-KNF3TMFJ" />
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <NextThemeProvider>
+          {children}
 
-        <Toaster />
+          <Toaster />
 
-        <TriggerAnalytics />
-        <Analytics />
-        <SpeedInsights />
+          <TriggerAnalytics />
+          <Analytics />
+          <SpeedInsights />
+        </NextThemeProvider>
       </body>
     </html>
   );
