@@ -30,6 +30,7 @@
     "lucide-react": "^0.468.0",
     "multer": "^1.4.5-lts.1",
     "next": "14.2.19",
+    "next-themes": "^0.4.4",
     "nookies": "^2.5.2",
     "react": "^18",
     "react-dom": "^18",
@@ -37,6 +38,7 @@
     "sharp": "^0.33.5",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
+    "use-debounce": "^10.0.4",
     "vaul": "^1.1.2"
   },
   "devDependencies": {
