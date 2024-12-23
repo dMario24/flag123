@@ -20,41 +20,57 @@
 - [use vercel-postgres](https://vercel.com/docs/storage/vercel-postgres)
 ```sql
 CREATE TABLE flags (
-    id SERIAL PRIMARY KEY,               -- 자동 증가 ID
-    name TEXT NOT NULL,                  -- 위치 이름
-    img_url TEXT NOT NULL,                  -- 이미지 데이터 (바이너리 형태)
-    latitude DOUBLE PRECISION NOT NULL,  -- 위도
-    longitude DOUBLE PRECISION NOT NULL  -- 경도
+    id SERIAL PRIMARY KEY,
+    name TEXT NOT NULL,
+    img_url TEXT NOT NULL,
+    latitude DOUBLE PRECISION NOT NULL,
+    longitude DOUBLE PRECISION NOT NULL
 );
 
-\dt;
+COMMENT ON TABLE flags IS 'Flag table storing flag information';
 
-\d flags;
+COMMENT ON COLUMN flags.id IS '자동 증가 ID';
+COMMENT ON COLUMN flags.name IS '위치 이름';
+COMMENT ON COLUMN flags.img_url IS '이미지 데이터 (바이너리 형태)';
+COMMENT ON COLUMN flags.latitude IS '위도';
+COMMENT ON COLUMN flags.longitude IS '경도';
+
+\d+ flags
 
 INSERT INTO flags (name, latitude, longitude, img_url) VALUES
 ('#BRAT impeachment and it’s completely different but also still impeachment', 37.525307 + (37.530139 - 37.525307) * RANDOM(), 126.919467 + (126.922896 - 126.919467) * RANDOM(), '/dummy/d1.webp'),
 ('Korean branch of the Jedi Federation', 37.525307 + (37.530139 - 37.525307) * RANDOM(), 126.919467 + (126.922896 - 126.919467) * RANDOM(), '/dummy/d2.webp'),
 ('Rapping Rabbit Federation', 37.525307 + (37.530139 - 37.525307) * RANDOM(), 126.919467 + (126.922896 - 126.919467) * RANDOM(), '/dummy/d3.webp'),
-('National Carrot Alliance Loving Rabbits', 37.525307 + (37.530139 - 37.525307) * RANDOM(), 126.919467 + (126.922896 - 126.919467) * RANDOM(), '/dummy/d4.webp');
+('National Carrot Alliance Loving Rabbits', 37.525307 + (37.530139 - 37.525307) * RANDOM(), 126.919467 + (126.922896 - 126.919467) * RANDOM(), '/dummy/d4.webp'),
+('Flags World Championship', 37.525307 + (37.530139 - 37.525307) * RANDOM(), 126.919467 + (126.922896 - 126.919467) * RANDOM(), '/dummy/FWC.png');
 
 
 SELECT id,name,img_url FROM flags ORDER BY id DESC;
-);
 
 -- 천하제일깃발대회 좋아요 테이블
 CREATE TABLE flag_likes (
-    id SERIAL PRIMARY KEY,                -- 자동 증가 ID
-    flag_id INTEGER NOT NULL,              -- flags 테이블의 ID와 외래키 관계
-    like_status INTEGER CHECK (like_status IN (1, -1)) DEFAULT 0, -- 좋아요 상태 (1: 좋아요, -1: 좋아요 취소, 0: 기본값 또는 초기 상태)
-    ip_address TEXT,                       -- 클라이언트 IP 주소 (TEXT로 변경)
-    browser TEXT,                          -- 클라이언트 브라우저 (TEXT로 변경)
-    device TEXT,                           -- 클라이언트 디바이스 (TEXT로 변경)
-    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP, -- 생성 시 자동으로 현재 시간
+    id SERIAL PRIMARY KEY,
+    flag_id INTEGER NOT NULL,
+    like_status INTEGER CHECK (like_status IN (1, -1)) DEFAULT 0,
+    ip_address TEXT,
+    browser TEXT,
+    device TEXT,
+    created_at TIMESTAMPTZ DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_flag
-        FOREIGN KEY (flag_id)             -- flags 테이블과 외래키 관계
-        REFERENCES flags (id)            -- flags 테이블의 id와 참조
-        ON DELETE CASCADE                 -- flags가 삭제되면 관련된 flag_likes도 삭제
+        FOREIGN KEY (flag_id)
+        REFERENCES flags (id)
+        ON DELETE CASCADE
 );
+
+COMMENT ON TABLE flag_likes IS 'Table storing flag like information';
+
+COMMENT ON COLUMN flag_likes.id IS '자동 증가 ID';
+COMMENT ON COLUMN flag_likes.flag_id IS 'flags 테이블의 ID와 외래키 관계';
+COMMENT ON COLUMN flag_likes.like_status IS '좋아요 상태 (1: 좋아요, -1: 좋아요 취소, 0: 기본값 또는 초기 상태)';
+COMMENT ON COLUMN flag_likes.ip_address IS '클라이언트 IP 주소';
+COMMENT ON COLUMN flag_likes.browser IS '클라이언트 브라우저';
+COMMENT ON COLUMN flag_likes.device IS '클라이언트 디바이스';
+COMMENT ON COLUMN flag_likes.created_at IS '생성 시 자동으로 현재 시간';
 
 ALTER TABLE flag_likes
 ADD COLUMN language TEXT,       -- 클라이언트 언어
@@ -62,6 +78,8 @@ ADD COLUMN domain TEXT;
 
 ALTER TABLE flag_likes
 ADD COLUMN pathname TEXT;
+
+
 
 -- 쪼인
 SELECT 
