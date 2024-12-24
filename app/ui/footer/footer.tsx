@@ -1,3 +1,5 @@
+'use client'
+
 import {
   Toilet,
   Flag,
@@ -7,13 +9,18 @@ import {
   GitPullRequestCreateArrow,
 } from "lucide-react";
 import Link from "next/link";
+import { usePathname } from 'next/navigation';
 
-export function FooterFlags({ copyrightHref = "/" }) {
+export function Footer() {
+  const pathname = usePathname();
+
+  // currentPath가 '/'가 아니면 '/''로 설정
+  const validHref = pathname === "/" ? "/123" : "/";
   return (
     <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
       <div className="max-w-3xl p-6 mt-3">
         <div className="flex gap-4 items-center justify-center">
-          {copyrightHref === "/" && (
+          {validHref === "/" && (
             <Link href={"/"} className="text-blue-500 hover:text-blue-800">
               <Flag size={24} />
             </Link>
@@ -68,7 +75,7 @@ export function FooterFlags({ copyrightHref = "/" }) {
         </p>
 
         <p className="text-sm text-gray-600 mt-3 text-center">
-          <Link href={copyrightHref} className="text-blue-500 hover:underline">
+          <Link href={validHref} className="text-blue-500 hover:underline">
             <span className="hidden lg:block">
               &copy; 12.3 계엄배 천하제일 재기발랄 깃발대회 by 민주주의 해방전선 나만 깃발 없엉 총연맹
             </span>
