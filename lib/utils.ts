@@ -27,3 +27,30 @@ export function getAuthHeaders(): Record<string, string> {
     Authorization: `Bearer ${apiKey}`,
   };
 }
+
+export function getEnv<T extends string | number | boolean>(
+  name: string,
+  defaultValue?: T
+): T {
+  const value = process.env[name];
+
+  if (value === undefined || value === null) {
+    if (defaultValue !== undefined) {
+      return defaultValue;
+    }
+    throw new Error(`Environment variable "${name}" is missing`);
+  }
+
+  // 자동 타입 변환
+  if (typeof defaultValue === "number") {
+    const parsedNumber = Number(value);
+    if (isNaN(parsedNumber)) {
+      throw new Error(`Environment variable "${name}" is not a valid number: ${value}`);
+    }
+    return parsedNumber as T;
+  } else if (typeof defaultValue === "boolean") {
+    return (value.toLowerCase() === "true") as T;
+  }
+
+  return value as T;
+}

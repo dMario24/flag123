@@ -12,7 +12,7 @@ interface ButtonUploadProps {
   searchTerm: string;
 }
 
-export function ButtonUpload({ searchTerm }: ButtonUploadProps) {
+export default function ButtonUpload({ searchTerm }: ButtonUploadProps) {
   const { toast } = useToast();
 
   const [loading, setLoading] = useState(false);

@@ -1,13 +1,27 @@
+'use client'
+
 import { useEffect, useState } from "react";
 import { Input } from "@/components/ui/input";
+import { useDebouncedCallback } from 'use-debounce';
+import { useSearchParams, usePathname, useRouter } from 'next/navigation';
 
-interface InputFlagSearchProps {
-  value: string;
-  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-}
-
-export function InputFlagSearch({ value, onChange }: InputFlagSearchProps) {
+export default function Search() {
   const [placeholder, setPlaceholder] = useState("🔍");
+
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+
+  const handleSearch = useDebouncedCallback((term: string) => {
+    const params = new URLSearchParams(searchParams);
+    if (term) {
+      params.set('query', term);
+    } else {
+      params.delete('query');
+    }
+    const useRouterReplacePath = `${pathname}?${params.toString()}`;
+    replace(useRouterReplacePath);
+  }, 300);
 
   useEffect(() => {
     const handleResize = () => {
@@ -31,10 +45,12 @@ export function InputFlagSearch({ value, onChange }: InputFlagSearchProps) {
 
   return (
     <Input
-      value={value}
-      onChange={onChange}
       placeholder={placeholder}
       className="!placeholder-indigo-400"
+      onChange={(e) => {
+        handleSearch(e.target.value);
+      }}
+      defaultValue={searchParams.get('query')?.toString()}
     />
   );
 }

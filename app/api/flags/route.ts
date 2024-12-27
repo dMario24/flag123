@@ -17,12 +17,6 @@ const fallbackErrHead: Flag[] = [
 
 const fallbackFlags: Flag[] = [
   {
-    id: 371,
-    name: "윤석열 탄핵 찬성 리스트",
-    img_url: "https://i.ibb.co/Qpjc3Cc/FB-IMG-1734444583345.jpg",
-    like_count: -1,
-  },
-  {
     id: 370,
     name: "야자수 섬 주민 향우회",
     img_url: "https://i.ibb.co/RbnGMkS/yaja.jpg",
