@@ -26,7 +26,7 @@ export default async function Home(props: {
   const isRefreshTimeout = timeElapsed >= CACHE_TIME_OUT;
   if (isRefreshTimeout || !cachedFlags) {
     try {
-      flags = await fetchFlags('');
+      flags = await fetchFlags();
       cachedFlags = flags; // 데이터를 캐싱
       lastFetchTime = Date.now();  // 마지막 조회 시간을 업데이트
     } catch (error) {
@@ -43,7 +43,6 @@ export default async function Home(props: {
 
   // query를 이용해서 cachedFlags에서 필터링
   const filteredFlags = flags.filter(flag =>
-    // flag.name.toLowerCase().includes(query.toLowerCase()) //name에 query가 포함된 플래그를 필터링
     flag.name.replace(/\s+/g, '').toLowerCase().includes(query.replace(/\s+/g, '').toLowerCase()) // 좌우 공백 제거
   );
 

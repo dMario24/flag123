@@ -1,0 +1,40 @@
+name: fff
+services:
+  db:
+    ports:
+      - 5432:5432
+    image: postgres:15.10
+    restart: always
+    # set shared memory limit when using docker-compose
+    shm_size: 64mb
+    # or set shared memory limit when deploy via swarm stack
+    #volumes:
+    #  - type: tmpfs
+    #    target: /dev/shm
+    #    tmpfs:
+    #      size: 134217728 # 128*2^20 bytes = 128Mb
+    environment:
+      POSTGRES_PASSWORD: flag123
+      POSTGRES_USER: flag123
+      POSTGRES_DB: flag123
+    volumes:
+      - ./postgres_init:/docker-entrypoint-initdb.d:ro
+      - ./postgres_data:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+  web:
+    build: .
+    # image: datamario24/fff-web:24.12.30
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://flag123:flag123@db:5432/flag123
+      BASE_URL: https://Replace with appropriate value
+      IMGBB_API_KEY: Replace with appropriate value

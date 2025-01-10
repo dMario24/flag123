@@ -27,6 +27,7 @@ yarn-error.log*
 
 # local env files
 .env*.local
+.env.dockercompose
 
 # vercel
 .vercel
@@ -37,3 +38,5 @@ next-env.d.ts
 
 # My
 public/img/uploads
+postgres_data/
+postgres_ssl/certs/certstrap
