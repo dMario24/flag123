@@ -29,7 +29,7 @@ export async function generateMetadata({
   const host = headersList.get("host");
   const protocol = headersList.get("x-forwarded-proto") || "http";
   const fullUrl = `${protocol}://${host}/flags/${id}/detail`;
-  const description = "🔴🏳️‍🌈🟠🚩🟡⚑🟢🏁🔵⚐🟣 계엄배 천하제일 깃발대회 by 민주주의 해방전선 나만 깃발 없엉 총연맹"
+  const description = "계엄배 천하제일 깃발대회"
   return {
     title: `${flag.name} - 상세 정보`,
     description: description,
@@ -40,8 +40,8 @@ export async function generateMetadata({
       images: [
         {
           url: flag.img_url,
-          width: 300,
-          height: 300,
+          width: 800,
+          height: 600,
           alt: flag.name,
         },
       ],
