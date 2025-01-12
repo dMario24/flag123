@@ -6,6 +6,7 @@ import { extractBrowserType } from './extractBrowserType';
 import sql from "@/app/lib/postgresjs";
 
 export class ActionClientPostgresJs implements ActionClientInterface {
+  
   async saveLikeDeltasToDatabase(insertData: { flag_id: number; delta_cnt: number; }[], clientId: string): Promise<void> {
     if (insertData.length === 0) {
       console.log("No like deltas to save.");
@@ -55,5 +56,9 @@ export class ActionClientPostgresJs implements ActionClientInterface {
     } catch (error) {
       console.error("Failed to save like deltas:", error);
     }
+  }
+
+  async updateFlag(flagId: number, formData: FormData): Promise<void> {
+    throw new Error('Method not implemented.' + flagId + formData);
   }
 }

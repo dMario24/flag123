@@ -11,4 +11,9 @@ export interface ActionClientInterface {
     insertData: { flag_id: number; delta_cnt: number }[],
     clientId: string
   ): Promise<void>;
+
+  updateFlag(
+    flagId: number,
+    formData: FormData,
+  ): Promise<void>;
 }

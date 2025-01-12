@@ -35,6 +35,9 @@ CREATE TABLE IF NOT EXISTS flag_metadata (
         ON DELETE CASCADE
 );
 
+ALTER TABLE flag_metadata
+ADD CONSTRAINT unique_flag_id UNIQUE (flag_id);
+
 CREATE TABLE IF NOT EXISTS clients (
     id SERIAL PRIMARY KEY,
     client_id CHAR(32) UNIQUE NOT NULL,
