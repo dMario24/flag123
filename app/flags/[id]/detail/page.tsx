@@ -77,7 +77,11 @@ export default async function Page({ params }: { params: { id: string } }) {
           <CardTitle className="text-center text-lg font-bold">
             {flag.name}
           </CardTitle>
-          <CardDescription className="text-center">🌐rigin:<a href={flag.source}>{flag.source}</a></CardDescription>
+          <CardDescription className="text-center">
+            🌐rigin:<a href={flag.source} target="_blank" rel="noopener noreferrer">
+              {flag.source}
+            </a>
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col items-center gap-4">
