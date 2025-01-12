@@ -7,14 +7,15 @@ import { useToast } from "@/hooks/use-toast";
 import { ToastAction } from "@/components/ui/toast";
 import { getAuthHeaders, getCacheTimeout } from "@/lib/utils";
 import { uploadFlagImg } from "@/app/lib/uploadFlagImg";
+import { useRouter } from 'next/navigation';
 
 interface ButtonUploadProps {
   searchTerm: string;
 }
 
 export default function ButtonUpload({ searchTerm }: ButtonUploadProps) {
+  const router = useRouter();
   const { toast } = useToast();
-
   const [loading, setLoading] = useState(false);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -89,6 +90,7 @@ export default function ButtonUpload({ searchTerm }: ButtonUploadProps) {
         action: <ToastAction altText="Try again">전진</ToastAction>,
       });
     }
+    router.push('/');
   };
 
   return (

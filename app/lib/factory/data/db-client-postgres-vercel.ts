@@ -1,8 +1,7 @@
 import { DbClientInterface } from "./db-clinet-interface";
-import { Flag, FlagFrom } from "@/app/lib/definitions";
+import { Flag, FlagMeta } from "@/app/lib/definitions";
 import { unstable_cache } from "next/cache";
 import { getCacheTimeout } from "@/lib/utils";
-
 import { sql } from "@vercel/postgres";
 
 const CACHE_TIMEOUT = getCacheTimeout();
@@ -11,13 +10,6 @@ export class DbClientPostgresVercel implements DbClientInterface {
   // https://nextjs.org/docs/app/building-your-application/data-fetching/fetching
   getDbData = unstable_cache(
     async () => {
-      // TODO DISABLE
-      // await sql`
-      //   UPDATE select_count
-      //   SET count = count + 1, last_updated = now()
-      //   WHERE id = 1;
-      // `;
-
       const data = await sql<Flag>`
       SELECT 
         f.id,
@@ -73,11 +65,8 @@ export class DbClientPostgresVercel implements DbClientInterface {
   )
       RETURNING id, name, img_url
   `;
-      console.log("✅ Data inserted successfully:", result.rows[0]);
-
-      console.log(
-        "revalidatePath allows you to purge cached data on-demand for a specific path."
-      );
+      // console.log("✅ Data inserted successfully:", result.rows[0]);
+      // console.log("revalidatePath allows you to purge cached data on-demand for a specific path.");
       // revalidatePath('/')
 
       return result.rows[0];
@@ -89,25 +78,30 @@ export class DbClientPostgresVercel implements DbClientInterface {
 
   async fetchFlagById(id: string) {
     try {
-      const data = await sql<FlagFrom>`
-    SELECT 
-      f.id,
-      f.name,
-      f.img_url,
-      COALESCE(SUM(fl.delta_cnt), 0) AS like_count,
-      f.latitude,
-      f.longitude
-    FROM 
+      const data = await sql<FlagMeta>`
+      SELECT 
+        f.id,
+        f.name,
+        f.img_url,
+        COALESCE(SUM(fl.delta_cnt), 0) AS like_count,
+        f.latitude,
+        f.longitude,
+        -- COALESCE(fm.source, '🐟') AS source
+        fm.source
+      FROM 
         flags f
-    LEFT JOIN 
+      LEFT JOIN 
         flag_like_history fl
-    ON 
+      ON 
         f.id = fl.flag_id
-    WHERE 
+      LEFT JOIN
+        flag_metadata fm
+      ON 
+        f.id = fm.flag_id
+      WHERE 
         f.id = ${id}
-    GROUP BY 
-        f.id
-  `;
+      GROUP BY 
+        f.id, fm.source`;
       return data.rows[0];
     } catch (error) {
       console.error("Database Error:", error);

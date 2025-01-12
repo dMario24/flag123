@@ -1,5 +1,3 @@
-// app/lib/uploadFlagImg.ts
-
 export async function uploadFlagImg(file: File) {
     const apiKey = process.env.NEXT_PUBLIC_F123_API_KEY; // 서버 환경 변수에서 API 키를 가져옵니다.
   

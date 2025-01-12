@@ -16,65 +16,76 @@
 
 
 
-## 📝 Initial Dummy Data 
+### 📝 Initial Data & DBMS
 - [use vercel-postgres](https://vercel.com/docs/storage/vercel-postgres)
-```sql
-SELECT version();
-PostgreSQL 15.10 on x86_64-pc-linux-gnu, compiled by gcc (Debian 10.2.1-6) 10.2.1 20210110, 64-bit
--- https://hub.docker.com/layers/library/postgres/15.10/images/sha256-6bd528fd9ed2ca50c0dd7c85c1bc20d0150c63418a04d8d3973cab95f63f9567
+    <details>
+        <summary>make dummy data</summary>
 
--- CREATE TABLE => postgres_init/1-create-table.sql
+        ```sql
+        SELECT version();
+        PostgreSQL 15.10 on x86_64-pc-linux-gnu, compiled by gcc (Debian 10.2.1-6) 10.2.1 20210110, 64-bit
+        -- https://hub.docker.com/layers/library/postgres/15.10/images/sha256-6bd528fd9ed2ca50c0dd7c85c1bc20d0150c63418a04d8d3973cab95f63f9567
 
-\d+ flags
+        -- CREATE TABLE => postgres_init/1-create-table.sql
 
-
-INSERT INTO flags (name, latitude, longitude, img_url) VALUES
-('#BRAT impeachment and it’s completely different but also still impeachment', 
-37.525307 + (37.530139 - 37.525307) * RANDOM(), 
-126.919467 + (126.922896 - 126.919467) * RANDOM(), 
-'/dummy/d1.webp')
-
-INSERT INTO flags (name, latitude, longitude, img_url) VALUES
-('#BRAT impeachment and it’s completely different but also still impeachment', 37.525307 + (37.530139 - 37.525307) * RANDOM(), 126.919467 + (126.922896 - 126.919467) * RANDOM(), '/dummy/d1.webp'),
-('Korean branch of the Jedi Federation', 37.525307 + (37.530139 - 37.525307) * RANDOM(), 126.919467 + (126.922896 - 126.919467) * RANDOM(), '/dummy/d2.webp'),
-('Rapping Rabbit Federation', 37.525307 + (37.530139 - 37.525307) * RANDOM(), 126.919467 + (126.922896 - 126.919467) * RANDOM(), '/dummy/d3.webp'),
-('National Carrot Alliance Loving Rabbits', 37.525307 + (37.530139 - 37.525307) * RANDOM(), 126.919467 + (126.922896 - 126.919467) * RANDOM(), '/dummy/d4.webp'),
-('Flags World Championship', 37.525307 + (37.530139 - 37.525307) * RANDOM(), 126.919467 + (126.922896 - 126.919467) * RANDOM(), '/dummy/FWC.png');
+        \d+ flags
 
 
-SELECT id,name,img_url FROM flags ORDER BY id DESC;
+        INSERT INTO flags (name, latitude, longitude, img_url) VALUES
+        ('#BRAT impeachment and it’s completely different but also still impeachment', 
+        37.525307 + (37.530139 - 37.525307) * RANDOM(), 
+        126.919467 + (126.922896 - 126.919467) * RANDOM(), 
+        '/dummy/d1.webp')
 
-SELECT
-    id,
-    flag_id,
-    delta_cnt,
-    created_at AT TIME ZONE 'Asia/Seoul' AS created_at_kst
-FROM 
-    flag_like_history
-ORDER BY 
-    id DESC;
+        INSERT INTO flags (name, latitude, longitude, img_url) VALUES
+        ('#BRAT impeachment and it’s completely different but also still impeachment', 37.525307 + (37.530139 - 37.525307) * RANDOM(), 126.919467 + (126.922896 - 126.919467) * RANDOM(), '/dummy/d1.webp'),
+        ('Korean branch of the Jedi Federation', 37.525307 + (37.530139 - 37.525307) * RANDOM(), 126.919467 + (126.922896 - 126.919467) * RANDOM(), '/dummy/d2.webp'),
+        ('Rapping Rabbit Federation', 37.525307 + (37.530139 - 37.525307) * RANDOM(), 126.919467 + (126.922896 - 126.919467) * RANDOM(), '/dummy/d3.webp'),
+        ('National Carrot Alliance Loving Rabbits', 37.525307 + (37.530139 - 37.525307) * RANDOM(), 126.919467 + (126.922896 - 126.919467) * RANDOM(), '/dummy/d4.webp'),
+        ('Flags World Championship', 37.525307 + (37.530139 - 37.525307) * RANDOM(), 126.919467 + (126.922896 - 126.919467) * RANDOM(), '/dummy/FWC.png');
 
-SHOW TIME ZONE; -- GMT
 
-SELECT CURRENT_TIMESTAMP;
+        SELECT id,name,img_url FROM flags ORDER BY id DESC;
 
--- 쪼인
-SELECT 
-    f.id,
-    f.name,
-    f.img_url,
-    COALESCE(SUM(fl.delta_cnt), 0) AS like_count
-FROM 
-    flags f
-LEFT JOIN 
-    flag_like_history fl
-ON 
-    f.id = fl.flag_id
-GROUP BY 
-    f.id, f.name, f.img_url
-ORDER BY 
-    f.id DESC
-```
+        SELECT
+            id,
+            flag_id,
+            delta_cnt,
+            created_at AT TIME ZONE 'Asia/Seoul' AS created_at_kst
+        FROM 
+            flag_like_history
+        ORDER BY 
+            id DESC;
+
+        SHOW TIME ZONE; -- GMT
+
+        SELECT CURRENT_TIMESTAMP;
+
+        -- 쪼인
+        SELECT 
+            f.id,
+            f.name,
+            f.img_url,
+            COALESCE(SUM(fl.delta_cnt), 0) AS like_count
+        FROM 
+            flags f
+        LEFT JOIN 
+            flag_like_history fl
+        ON 
+            f.id = fl.flag_id
+        GROUP BY 
+            f.id, f.name, f.img_url
+        ORDER BY 
+            f.id DESC
+        ```
+
+    </details>
+
+- Alternatively, you can use the local DBMS using the Dockerizing part below. The setting file DATABASE_CLIENT needs to be changed.
+
+
+
+
 ### 🌱 Env
 - Rename env.dummy to .env.local. Make sure the file is not pushed to the public GitHub repository.
 - To avoid using analytics and statistics by connecting to Google Firebase, delete analytics.ts.
@@ -113,29 +124,6 @@ $ npm test
 
 ### 🤝 Contribution
 - Contributions are open, though I don’t expect anyone to take an interest. I’ll gratefully accept any small advice or help. Thank you. Best regards. 😊👍
-- Data.ts has a UPDATA syntax to verify the caching of vercel. Most of the time, it's not necessary. If it's alive, you can delete it.
-```javascript
-// https://nextjs.org/docs/app/building-your-application/data-fetching/fetching
-const getDbData = unstable_cache(
-  async () => {
-
-    // TODO DISABLE
-    await sql`
-        UPDATE select_count
-        SET count = count + 1, last_updated = now()
-        WHERE id = 1;
-      `;
-
-    const data = await sql<Flag>`SELECT id, name, img_url FROM flags ORDER BY id DESC`;
-    return data.rows;
-  },
-  ['msi'],
-  {
-    revalidate: CACHE_TIMEOUT,
-    tags: ['ism']
-  }
-)
-```
 
 ### 🚀 Deploy & Connect DB
 - https://vercel.com/docs/deployments/overview
@@ -143,29 +131,15 @@ const getDbData = unstable_cache(
 - https://vercel.com/docs/cli/env
 
 ### ⚓ Dockerizing
-```bash
-$ docker build -t flag123:1.1.0 .
+- The .env.local file DATABASE_CLIENT needs to be changed.
+    ```bash
+    # docker compose down --volumes --remove-orphans
+    # sudo rm -rf postgres_data
 
-$ docker images                  
-REPOSITORY                   TAG       IMAGE ID       CREATED         SIZE
-flag123                      1.1.0     09e5616462d9   2 minutes ago   179MB
-
-$ docker run --name f110 -p 3110:3000 -d --env-file .env.local flag123:1.1.0
-
-$ docker stats
-CONTAINER ID   NAME      CPU %     MEM USAGE / LIMIT     MEM %     NET I/O     BLOCK I/O   PIDS
-8de21b110d7f   f110      0.00%     28.91MiB / 9.717GiB   0.29%     876B / 0B   0B / 0B     11
-```
-
-### Docker Compose
-```bash
-# docker compose down --volumes --remove-orphans
-# sudo rm -rf postgres_data
-
-$ docker compose up -d db adminer
-$ docker compose build web
-$ docker compose up -d web
-```
+    $ docker compose up -d db adminer
+    $ docker compose build web
+    $ docker compose up -d web
+    ```
 
 ### 🔖 Ref
 - https://medium.com/@alexandre.penombre/file-upload-with-next-js-14-app-router-6cb0e594e778
@@ -175,6 +149,7 @@ $ docker compose up -d web
 - https://nextjs.org/docs/pages/building-your-application/configuring/debugging
 - https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadata-fields
 - [로컬 데이터베이스가 있는 Next.js 튜토리얼: 빠른 시작 가이드](https://medium.com/@dekadekadeka/next-js-tutorial-with-local-database-quick-start-guide-394d48a0aada)
+- [nextjs edit page](https://nextjs.org/learn/dashboard-app/mutating-data#updating-an-invoice)
 
 ### Errors
 - Application error: a client-side exception has occurred (see the browser console for more information).

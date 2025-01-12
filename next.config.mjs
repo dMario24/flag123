@@ -35,8 +35,8 @@ const nextConfig = {
 
   env: {
     APP_VERSION: packageJson.version,
-    BASE_CAMP: "https://github.com/ppabam/FlagForFreedom",
-    // BASE_CAMP: "https://github.com/dMario24/flag123",
+    // BASE_CAMP: "https://github.com/ppabam/FlagForFreedom",
+    BASE_CAMP: "https://github.com/dMario24/flag123",
     COMMIT_HASH: commitHash,
     BUILD_TIME: getBuildTime(),
   },
