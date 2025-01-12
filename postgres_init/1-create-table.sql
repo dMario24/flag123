@@ -2,7 +2,7 @@ CREATE TABLE IF NOT EXISTS  flags (
     id SERIAL PRIMARY KEY,
     name TEXT NOT NULL,
     img_url TEXT NOT NULL,
-    latitude DOUBLE PRECISION NOT NULL,
+    latitude DOUBLE PRECISION NOT NULL, --TODO flag_metadata 로직 추가되면 제거 필요
     longitude DOUBLE PRECISION NOT NULL
 );
 
@@ -13,6 +13,27 @@ COMMENT ON COLUMN flags.name IS '위치 이름';
 COMMENT ON COLUMN flags.img_url IS '이미지 데이터 (바이너리 형태)';
 COMMENT ON COLUMN flags.latitude IS '위도';
 COMMENT ON COLUMN flags.longitude IS '경도';
+
+CREATE TABLE IF NOT EXISTS flag_metadata (
+    id SERIAL PRIMARY KEY,
+    flag_id INT NOT NULL,
+    source TEXT,
+    likes INT DEFAULT 0,  -- 추가된 '좋아요' 수
+    latitude DOUBLE PRECISION,
+    longitude DOUBLE PRECISION,
+    gold_medals INT DEFAULT 0,
+    silver_medals INT DEFAULT 0,
+    bronze_medals INT DEFAULT 0,
+    shared_count INT DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+
+    -- 외래 키로 flags 테이블의 id 참조
+    CONSTRAINT fk_flag
+        FOREIGN KEY (flag_id)
+        REFERENCES flags (id)
+        ON DELETE CASCADE
+);
 
 CREATE TABLE IF NOT EXISTS clients (
     id SERIAL PRIMARY KEY,

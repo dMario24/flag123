@@ -149,6 +149,7 @@ $ npm test
 - https://nextjs.org/docs/pages/building-your-application/configuring/debugging
 - https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadata-fields
 - [로컬 데이터베이스가 있는 Next.js 튜토리얼: 빠른 시작 가이드](https://medium.com/@dekadekadeka/next-js-tutorial-with-local-database-quick-start-guide-394d48a0aada)
+- [nextjs edit page](https://nextjs.org/learn/dashboard-app/mutating-data#updating-an-invoice)
 
 ### Errors
 - Application error: a client-side exception has occurred (see the browser console for more information).

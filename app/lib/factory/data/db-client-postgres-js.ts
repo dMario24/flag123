@@ -1,8 +1,9 @@
 import { DbClientInterface } from './db-clinet-interface'
-import { Flag, FlagFrom } from "@/app/lib/definitions";
+import { Flag, FlagMeta } from "@/app/lib/definitions";
 import { unstable_cache } from "next/cache";
 import { getCacheTimeout } from "@/lib/utils";
 
+import { getQueyThatfetchFlagById } from "./utils-query";
 import sql from "@/app/lib/postgresjs";
 
 const CACHE_TIMEOUT = getCacheTimeout();
@@ -68,11 +69,8 @@ export class DbClientPostgresJs implements DbClientInterface {
     )
         RETURNING id, name, img_url
     `;
-      console.log("✅ Data inserted successfully:", result[0]);
-
-      console.log(
-        "revalidatePath allows you to purge cached data on-demand for a specific path."
-      );
+      // console.log("✅ Data inserted successfully:", result[0]);
+      // console.log("revalidatePath allows you to purge cached data on-demand for a specific path.");
       // revalidatePath('/')
 
       return result[0];
@@ -82,37 +80,11 @@ export class DbClientPostgresJs implements DbClientInterface {
     }
   }
 
-  async fetchFlagById(id: string): Promise<FlagFrom> {
+  async fetchFlagById(id: string): Promise<FlagMeta> {
+    const query = getQueyThatfetchFlagById(id);
     try {
-      const data = await sql<FlagFrom[]>`
-      SELECT 
-        f.id,
-        f.name,
-        f.img_url,
-        COALESCE(SUM(fl.delta_cnt), 0) AS like_count,
-        f.latitude,
-        f.longitude
-      FROM 
-          flags f
-      LEFT JOIN 
-          flag_like_history fl
-      ON 
-          f.id = fl.flag_id
-      WHERE 
-          f.id = ${id}
-      GROUP BY 
-          f.id
-    `;
+      const data = await sql<FlagMeta[]>`${query}`;
       return data[0];
-
-      // // Type casting
-      // const flag = data[0] as Flag;
-
-      // if (!flag) {
-      //   throw new Error(`No flag found with ID: ${id}`);
-      // }
-
-      // return flag;
     } catch (error) {
       console.error('Database Error:', error);
       throw new Error('Failed to FilteredFlags.');

@@ -1,14 +1,15 @@
 import { fetchFlagById } from "@/app/lib/data";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import Image from "next/image";
 import MapSection from "@/app/ui/map/MapSection";
 import {
-  // FaFlag as Home, 
+  FaSearch  as Home, 
   FaTwitterSquare as Twitter,
-  FaFacebookSquare as Facebook
+  FaFacebookSquare as Facebook,
+  FaEdit as Edit
 } from "react-icons/fa";
 
-import { FiHome as Home } from "react-icons/fi";
+// import { FiHome as Home } from "react-icons/fi";
 
 // https://react-icons.github.io/react-icons/icons/si/
 // import { SiKakaotalk } from "react-icons/si";
@@ -76,6 +77,7 @@ export default async function Page({ params }: { params: { id: string } }) {
           <CardTitle className="text-center text-lg font-bold">
             {flag.name}
           </CardTitle>
+          <CardDescription className="text-right">🌐rigin:{flag.source}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex flex-col items-center gap-4">
@@ -98,10 +100,7 @@ export default async function Page({ params }: { params: { id: string } }) {
                 <Twitter size={snsBtnSize} className="text-sky-400" />
               </a>
               <Link href="/" aria-label="Go to Home">
-                <Home
-                  size={snsBtnSize}
-                  className="text-fuchsia-600"
-                />
+                <Home size={snsBtnSize} className="text-fuchsia-600" />
               </Link>
 
               <a
@@ -113,8 +112,11 @@ export default async function Page({ params }: { params: { id: string } }) {
                 <Facebook size={snsBtnSize} className="text-blue-700" />
               </a>
 
-
+              <Link href={`/flags/${flag.id}/edit`}>
+                <Edit size={snsBtnSize} className="text-lime-600" />
+              </Link>
             </div>
+            
           </div>
         </CardContent>
       </Card>
