@@ -68,7 +68,8 @@ export default async function Page({ params }: { params: { id: string } }) {
   // 전체 URL 구성
   const fullUrl = `${protocol}://${host}/flags/${params.id}/detail`;
 
-  const snsBtnSize = 33
+  const snsBtnSize = 33;
+  const hoverScale = "hover:scale-200";
   return (
     <div className="flex flex-col items-center p-6">
       {/* Flag Details Card */}
@@ -101,10 +102,10 @@ export default async function Page({ params }: { params: { id: string } }) {
                 rel="noopener noreferrer"
                 aria-label="Share on Twitter"
               >
-                <Twitter size={snsBtnSize} className="text-sky-400" />
+                <Twitter size={snsBtnSize} className={`text-sky-400 ${hoverScale}`} />
               </a>
               <Link href="/" aria-label="Go to Home">
-                <Home size={snsBtnSize} className="text-fuchsia-600" />
+                <Home size={snsBtnSize} className={`text-fuchsia-600 ${hoverScale}`} />
               </Link>
 
               <a
@@ -113,11 +114,11 @@ export default async function Page({ params }: { params: { id: string } }) {
                 rel="noopener noreferrer"
                 aria-label="Share on Facebook"
               >
-                <Facebook size={snsBtnSize} className="text-blue-700" />
+                <Facebook size={snsBtnSize} className={`text-blue-700 ${hoverScale}`} />
               </a>
 
               <Link href={`/flags/${flag.id}/edit`}>
-                <Edit size={snsBtnSize} className="text-lime-600" />
+                <Edit size={snsBtnSize} className={`text-lime-600 ${hoverScale}`} />
               </Link>
             </div>
             
