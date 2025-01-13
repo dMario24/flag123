@@ -3,12 +3,11 @@
 import { Flag } from "@/app/lib/definitions";
 import LikeableImage from "./likeable-image";
 import { useEffect, useState } from "react";
-import { saveLikeDeltasToDatabase } from "@/app/lib/action"
 import { getImageQuality, isImageAllDownButtonEnabled } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
-import { getClientId } from "@/app/lib/getClientId";
 import JSZip from "jszip"; // ZIP 파일 생성 라이브러리
 import { saveAs } from "file-saver"; // 파일 다운로드 라이브러리
+import { saveLinked } from "./saveLinked";
 
 const IMAGE_QUALITY = getImageQuality();
 const ENABLE_IMAGE_ALL_DOWN_BUTTON = isImageAllDownButtonEnabled();
@@ -145,37 +144,9 @@ export default function SortableGallery({ filteredFlags }: FlagsProps) {
       if (isSaving) return; // 이미 저장 중이면 실행하지 않음
       isSaving = true;
 
-      const likeDeltas = JSON.parse(localStorage.getItem("like_deltas") || "{}");
+      saveLinked();
 
-      if (Object.keys(likeDeltas).length === 0) {
-        console.log("No like deltas to save.");
-        return;
-      }
-
-      // 데이터 생성
-      const insertData = Object.entries(likeDeltas)
-        .filter(([, delta_cnt]) => parseInt(delta_cnt as string, 10) !== 0) // delta_cnt가 0이 아닌 항목만 포함
-        .map(([flag_id, delta_cnt]) => ({
-          flag_id: parseInt(flag_id, 10),
-          delta_cnt: parseInt(delta_cnt as string, 10),
-        }));
-
-      if (insertData.length === 0) {
-        console.log("No valid like deltas to save.");
-        return; // 추가 작업 없이 함수 종료
-      }
-
-      try {
-        const clinet_id = await getClientId();
-        // Server Action 호출
-        await saveLikeDeltasToDatabase(insertData, clinet_id);
-        // 저장 성공 시 로컬스토리지 초기화
-        localStorage.removeItem("like_deltas");
-      } catch (error) {
-        console.error("Failed to save likes on unload:", error);
-      } finally {
-        isSaving = false; // 저장 완료 후 플래그 리셋
-      }
+      isSaving = false; // 저장 완료 후 플래그 리셋
     };
 
     const handleVisibilityChange = () => {

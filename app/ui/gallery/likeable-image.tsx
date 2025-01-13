@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { parseCookies, setCookie } from "nookies";
 import { Heart, Info } from "lucide-react";
 import Link from "next/link";
+import { saveLinked } from "./saveLinked";
 
 export default function LikeableImage({ flag, image_quality }: { flag: Flag, image_quality: number }) {
 
@@ -32,6 +33,9 @@ export default function LikeableImage({ flag, image_quality }: { flag: Flag, ima
     updateLocalStorage(flag.id, updatedLiked);
     setLikeCount((prev) => (updatedLiked ? Number(prev) + 1 : Number(prev) - 1));
     setLiked(updatedLiked);
+
+    // saver one-by-one
+    saveLinked();
   };
 
 
