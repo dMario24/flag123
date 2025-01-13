@@ -1,12 +1,18 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import NextAuth from 'next-auth';
+import { authConfig } from './auth.config';
+ 
+export default NextAuth(authConfig).auth;
 
+// https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher
 export const config = {
   // 이 경로들에만 미들웨어가 적용됩니다.
   matcher: [
     "/api/flags",
     "/api/flags/imgbb",
     "/api/flags/insert",
+    '/((?!api|_next/static|_next/image|.*\\.png$).*)',
   ], // 이 경로들에만 미들웨어가 적용됩니다.
 };
 
