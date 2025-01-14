@@ -1,6 +1,5 @@
 import { fetchFlagById } from "@/app/lib/data";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
-import Image from "next/image";
 import MapSection from "@/app/ui/map/MapSection";
 import {
   FaSearch  as Home, 

@@ -8,8 +8,9 @@ import { useSearchParams } from "next/navigation";
 import JSZip from "jszip"; // ZIP 파일 생성 라이브러리
 import { saveAs } from "file-saver"; // 파일 다운로드 라이브러리
 import { saveLinked } from "./saveLinked";
+import { getImageQuality } from "@/lib/utils";
 
-
+const IMAGE_QUALITY = getImageQuality();
 const ENABLE_IMAGE_ALL_DOWN_BUTTON = isImageAllDownButtonEnabled();
 
 interface FlagsProps {
