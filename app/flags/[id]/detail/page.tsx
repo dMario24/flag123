@@ -79,14 +79,14 @@ export default async function Page({ params }: { params: { id: string } }) {
             {flag.name}
           </CardTitle>
           <CardDescription className="text-center">
-            🌐rigin:<a 
+            <a 
             href={flag.source} 
             target="_blank" 
             rel="noopener noreferrer" 
             className="inline-block max-w-full truncate text-blue-500 hover:underline"
             title={flag.source}  // 전체 URL 툴팁 제공
             >
-              {flag.source}
+              🌐rigin: {flag.source}
             </a>
           </CardDescription>
         </CardHeader>
