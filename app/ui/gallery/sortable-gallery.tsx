@@ -3,13 +3,13 @@
 import { Flag } from "@/app/lib/definitions";
 import LikeableImage from "./likeable-image";
 import { useEffect, useState } from "react";
-import { getImageQuality, isImageAllDownButtonEnabled } from "@/lib/utils";
+import { isImageAllDownButtonEnabled } from "@/lib/utils";
 import { useSearchParams } from "next/navigation";
 import JSZip from "jszip"; // ZIP 파일 생성 라이브러리
 import { saveAs } from "file-saver"; // 파일 다운로드 라이브러리
 import { saveLinked } from "./saveLinked";
 
-const IMAGE_QUALITY = getImageQuality();
+
 const ENABLE_IMAGE_ALL_DOWN_BUTTON = isImageAllDownButtonEnabled();
 
 interface FlagsProps {
@@ -200,7 +200,7 @@ export default function SortableGallery({ filteredFlags }: FlagsProps) {
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
         {sortedFlags.map((flag) => (
           <li key={flag.id} className="text-center">
-            <LikeableImage flag={flag} image_quality={IMAGE_QUALITY} />
+            <LikeableImage flag={flag} />
             {/* 플래그 이름 */}
             <p className="mt-2 text-pretty font-bold"> {flag.name}</p>
           </li>
