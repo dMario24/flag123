@@ -16,6 +16,7 @@ import {
 import { headers } from "next/headers";
 import { Metadata } from "next";
 import Link from "next/link";
+import LikeableImage from "@/app/ui/gallery/likeable-image";
 
 // ✅ Open Graph 메타데이터 동적 생성
 export async function generateMetadata({
@@ -86,13 +87,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         </CardHeader>
         <CardContent>
           <div className="flex flex-col items-center gap-4">
-            <Image
-              src={flag.img_url}
-              alt={flag.name}
-              width={300}
-              height={300}
-              className="rounded-md w-full max-w-md"
-            />
+            <LikeableImage flag={flag} detailButtonEnabled={false} />
 
             {/* SNS 공유 버튼 */}
             <div className="flex gap-4">

@@ -7,8 +7,17 @@ import { parseCookies, setCookie } from "nookies";
 import { Heart, Info } from "lucide-react";
 import Link from "next/link";
 import { saveLinked } from "./saveLinked";
+import { getImageQuality } from "@/lib/utils";
 
-export default function LikeableImage({ flag, image_quality }: { flag: Flag, image_quality: number }) {
+const IMAGE_QUALITY = getImageQuality();
+
+export default function LikeableImage({ 
+  flag, 
+  detailButtonEnabled = true,
+}: { 
+  flag: Flag, 
+  detailButtonEnabled?: boolean,
+}) {
 
   const [liked, setLiked] = useState<boolean | null>(null); // 초기값을 null로 설정하여 로딩 상태 표현
   const [likeCount, setLikeCount] = useState(flag.like_count);
@@ -50,7 +59,7 @@ export default function LikeableImage({ flag, image_quality }: { flag: Flag, ima
         onClick={toggleLike}
         priority={false}
         // placeholder='blur'
-        quality={image_quality}
+        quality={IMAGE_QUALITY}
       />
 
 
@@ -87,9 +96,8 @@ export default function LikeableImage({ flag, image_quality }: { flag: Flag, ima
           </div>
         )}
 
-      {/* MapPinned 버튼 (환경 변수로 ON/OFF) */}
-      {(process.env.NEXT_PUBLIC_MAP_PINNED_ENABLED || "OFF") ===
-        "ON" && (
+      {/* Detail 버튼 (환경 변수로 ON/OFF) */}
+      {detailButtonEnabled && (process.env.NEXT_PUBLIC_MAP_PINNED_ENABLED || "OFF") === "ON" && (
           <button
             // onClick={() =>
             //   console.log(`MapPinned clicked for ${flag.id}`)
