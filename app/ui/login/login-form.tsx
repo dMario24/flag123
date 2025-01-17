@@ -9,10 +9,13 @@ import {
 } from '@heroicons/react/24/outline';
 import { ArrowRightIcon } from '@heroicons/react/20/solid';
 import { Button } from '@/app/ui/button';
-import { useActionState } from 'react';
+
+// https://stackoverflow.com/questions/78687164/cant-import-useactionstate-from-react-following-next-js-tutorial-next-js
+// import { useActionState } from 'react';
+import { useFormState } from 'react-dom';
 
 export default function LoginForm() {
-  const [errorMessage, formAction, isPending] = useActionState(
+  const [errorMessage, formAction, isPending] = useFormState(
     authenticate,
     undefined,
   );
