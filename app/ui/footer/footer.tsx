@@ -1,3 +1,5 @@
+"use server";
+
 import { getBaseCamp, getVersion, joinUrl } from "@/lib/utils";
 import {
   CreditCard,
@@ -14,14 +16,17 @@ import Href from "./href";
 import A from "./a";
 import IfLink from "./if-link";
 import IfLinkSize from "./if-link-size";
-import { signOut } from '@/auth';
+import { signOut, auth } from '@/auth';
 
 const BASE_CAMP = getBaseCamp();
 const VERSION = getVersion();
 const COMMIT_HASH = process.env.COMMIT_HASH || "𓆝 𓆟 𓆞 𓆝 𓆟";
 const BUILD_TIME = process.env.BUILD_TIME || "👨‍💻🎲🕒🦾🟢";
 
-export function Footer() {
+export async function Footer() {
+  const session = await auth();  // getServerSession 대신 auth() 사용
+  const isLoggedIn = !!session?.user;
+
   return (
     <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
       <div className="max-w-3xl p-6 mt-3">
@@ -33,11 +38,8 @@ export function Footer() {
           <A url="https://www.yna.co.kr/view/AKR20241212062700001?section=politics/all" color="purple" txt={<Angry size={24} />} />
           <A url="https://nodong.org/notice/7872937" color="green" txt={<Smartphone size={24} />} />
           <A url={BASE_CAMP} color="yellow" txt={<GitPullRequestCreateArrow size={24} />} />
-          
-          <Link href="/login" className="flex items-center">
-            <PowerIcon size={24} className="text-green-500 hover:text-blue-500" />
-          </Link>
 
+          {isLoggedIn ? (
           <form
             action={async () => {
               'use server';
@@ -49,6 +51,11 @@ export function Footer() {
               <PowerOffIcon size={24} className={`text-pink-500 hover:text-red-500`} />
             </button>
           </form>
+          ) : (
+            <Link href="/login" className="flex items-center">
+              <PowerIcon size={24} className="text-blue-500 hover:text-red-500" />
+            </Link>
+          )}
         </div>
 
         <p className="text-sm text-gray-600 mt-3 text-center">
