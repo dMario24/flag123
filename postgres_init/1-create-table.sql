@@ -74,7 +74,6 @@ CREATE TABLE IF NOT EXISTS users (
       email TEXT NOT NULL UNIQUE,
       password TEXT NOT NULL
 );
-
 -- const users = [
 --   {
 --     id: '410544b2-4001-4271-9855-fec4b6a6442a',
@@ -88,7 +87,6 @@ CREATE TABLE IF NOT EXISTS users (
 -- const hashedPassword = await bcrypt.hash('123456', 10);
 -- hashedPassword
 -- '$2b$10$030PAxHRVPIQ3bZzYxib4.syFb8cFXcxGYcgdFDENLOlEGt7iS1Le'
-
 INSERT INTO users (id, name, email, password)
 VALUES ('410544b2-4001-4271-9855-fec4b6a6442a', 'User', 'user@nextmail.com', '$2b$10$030PAxHRVPIQ3bZzYxib4.syFb8cFXcxGYcgdFDENLOlEGt7iS1Le')
 ON CONFLICT (id) DO NOTHING;

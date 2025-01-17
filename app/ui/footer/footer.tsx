@@ -8,8 +8,9 @@ import {
   Angry,
   Smartphone,
   GitPullRequestCreateArrow,
-  PowerIcon,
-  PowerOffIcon,
+  PowerIcon as LoginIcon,
+  PowerOffIcon as LogOutIcon,
+  LayoutDashboard as AdminIcon
 } from "lucide-react";
 import Link from "next/link";
 import Href from "./href";
@@ -40,22 +41,32 @@ export async function Footer() {
           <A url={BASE_CAMP} color="yellow" txt={<GitPullRequestCreateArrow size={24} />} />
 
           {isLoggedIn ? (
-          <form
-            action={async () => {
-              'use server';
-              await signOut();
-            }}
-            className="flex"
-          >
-            <button>
-              <PowerOffIcon size={24} className={`text-pink-500 hover:text-red-500`} />
-            </button>
-          </form>
+            <div className="flex gap-4 items-center">
+              {/* 관리자 페이지 링크 */}
+              <Link href="/admin" className="flex items-center">
+                <AdminIcon size={24} className="text-blue-500 hover:scale-200" />
+              </Link>
+
+              {/* 로그아웃 버튼 */}
+              <form
+                action={async () => {
+                  'use server';
+                  await signOut();
+                }}
+                className="flex"
+              >
+                <button>
+                  <LogOutIcon size={24} className={`text-pink-500 hover:text-red-500`} />
+                </button>
+              </form>
+            </div>
           ) : (
             <Link href="/login" className="flex items-center">
-              <PowerIcon size={24} className="text-blue-500 hover:text-red-500" />
+              <LoginIcon size={24} className="text-blue-500 hover:scale-150" />
             </Link>
           )}
+
+
         </div>
 
         <p className="text-sm text-gray-600 mt-3 text-center">

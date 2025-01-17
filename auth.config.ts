@@ -15,9 +15,9 @@ export const authConfig = {
 
       if (isOnAdmin && !isLoggedIn) {
         // ✅ 비로그인 상태에서 /admin 접근 시 로그인 페이지로 리다이렉트
-        return Response.redirect(new URL('/login', nextUrl));
+        return Response.redirect(new URL('/404', nextUrl));
       }
-      
+
       return true;
     },
   },
