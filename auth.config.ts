@@ -12,12 +12,12 @@ export const authConfig = {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
       const isOnAdmin = nextUrl.pathname.startsWith('/admin');
-      if (isOnAdmin) {
-        if (isLoggedIn) return true;
-        return false; // Redirect unauthenticated users to login page
-      } else if (isLoggedIn) {
-        return Response.redirect(new URL('/admin', nextUrl));
+
+      if (isOnAdmin && !isLoggedIn) {
+        // ✅ 비로그인 상태에서 /admin 접근 시 로그인 페이지로 리다이렉트
+        return Response.redirect(new URL('/login', nextUrl));
       }
+      
       return true;
     },
   },
