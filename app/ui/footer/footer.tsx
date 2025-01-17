@@ -18,8 +18,8 @@ import { signOut } from '@/auth';
 
 const BASE_CAMP = getBaseCamp();
 const VERSION = getVersion();
-const COMMIT_HASH = process.env.COMMIT_HASH || "𖢊 𖥣 𖣣 𖤣 𖤥 𖡡 𖧹";
-const BUILD_TIME = process.env.BUILD_TIME || "▄︻デ══━一💥";
+const COMMIT_HASH = process.env.COMMIT_HASH || "𓆝 𓆟 𓆞 𓆝 𓆟";
+const BUILD_TIME = process.env.BUILD_TIME || "👨‍💻🎲🕒🦾🟢";
 
 export function Footer() {
   return (
