@@ -104,7 +104,7 @@ export default async function Page({ params }: { params: { id: string } }) {
               >
                 <Twitter size={snsBtnSize} className={`text-sky-400 ${hoverScale}`} />
               </a>
-              <Link href="/" aria-label="Go to Home">
+              <Link href="/?sort=shuffle" aria-label="Go to Home">
                 <Home size={snsBtnSize} className={`text-fuchsia-600 ${hoverScale}`} />
               </Link>
 
