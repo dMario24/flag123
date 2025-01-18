@@ -33,12 +33,12 @@ export async function Footer() {
       <div className="max-w-3xl p-6 mt-3">
         <div className="flex gap-4 items-center justify-center">
           <IfLink />
-          <A url="https://www.redcard.kr/flag-flex" color="red" txt={<CreditCard size={24} />} />
-          <A url="https://www.mapplerk3.com/minjumap" color="blue" txt={<Toilet size={24} />} />
-          <A url="https://candle.btsroad.com" color="pink" txt={<Flame size={24} />} />
-          <A url="https://www.yna.co.kr/view/AKR20241212062700001?section=politics/all" color="purple" txt={<Angry size={24} />} />
-          <A url="https://nodong.org/notice/7872937" color="green" txt={<Smartphone size={24} />} />
-          <A url={BASE_CAMP} color="yellow" txt={<GitPullRequestCreateArrow size={24} />} />
+          <A url="https://www.redcard.kr/flag-flex" color={"red"} txt={<CreditCard size={24} />} />
+          <A url="https://www.mapplerk3.com/minjumap" color={"blue"} txt={<Toilet size={24} />} />
+          <A url="https://candle.btsroad.com" color={"pink"} txt={<Flame size={24} />} />
+          <A url="https://www.yna.co.kr/view/AKR20241212062700001?section=politics/all" color={"purple"} txt={<Angry size={24} />} />
+          <A url="https://nodong.org/notice/7872937" color={"green"} txt={<Smartphone size={24} />} />
+          <A url={BASE_CAMP} color={"yellow"} txt={<GitPullRequestCreateArrow size={24} />} />
 
           {isLoggedIn ? (
             <div className="flex gap-4 items-center">

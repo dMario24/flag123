@@ -154,3 +154,7 @@ $ npm test
 
 ### Errors
 - Application error: a client-side exception has occurred (see the browser console for more information).
+- Error: Cannot find module '/home/ppabam/code/flag123/node_modules/.pnpm/bcrypt@5.1.1/node_modules/bcrypt/lib/binding/napi-v3/bcrypt_lib.node'
+    ```bash
+    $ npm rebuild bcrypt
+    ```
