@@ -27,16 +27,18 @@ export const authConfig = {
       const isOnAdmin = nextUrl.pathname.startsWith('/admin');
       const isOnLogin = nextUrl.pathname.startsWith('/login');
 
-      if (isOnAdmin && !isLoggedIn) {
+      if (!isLoggedIn && isOnAdmin) {
         // ✅ 비로그인 상태에서 /admin 접근 시 로그인 페이지로 리다이렉트
+        console.log("✅ 비로그인 상태에서 /admin 접근 시 로그인 페이지로 리다이렉트");
         return Response.redirect(new URL('/404', nextUrl));
       }
 
-      if (isOnLogin && isLoggedIn) {
+      if (isLoggedIn && isOnLogin) {
         // ✅ 로그인 상태에서 /login 접근 시 /admin으로 리다이렉트
+        console.log("✅ 로그인 상태에서 /login 접근 시 /admin으로 리다이렉트");
         return Response.redirect(new URL('/admin', nextUrl));
       }
-
+      console.log("authorized return true");
       return true;
     },
   },
