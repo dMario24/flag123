@@ -30,7 +30,7 @@ const IsAdminBtn: React.FC<IsAdminBtnProps> = ({ flagId }) => {
   }
 
   return (
-    <TooltipIcon tooltip="삭제" link={`/flags/${flagId}/delete`} icon={Delete} iColor="text-red-600" />
+    <TooltipIcon tooltip="삭제" link={`/flags/${flagId}/detail`} icon={Delete} iColor="text-red-600" />
   );
 };
 
