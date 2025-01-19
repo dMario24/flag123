@@ -16,21 +16,24 @@ export const authConfig = {
       const pathname = nextUrl.pathname;
       const isOnAdmin = pathname.startsWith('/admin');
       const isOnLogin = pathname.startsWith('/login');
+      const isApiFlags = pathname.startsWith("/api/flags");
 
       if (!isLoggedIn && isOnAdmin) {
         // ✅ 비로그인 상태에서 /admin 접근 시 로그인 페이지로 리다이렉트
-        console.log("✅ 비로그인 상태에서 /admin 접근 시 로그인 페이지로 리다이렉트");
+        // console.log("✅ 비로그인 상태에서 /admin 접근 시 로그인 페이지로 리다이렉트");
         return Response.redirect(new URL('/404', nextUrl));
       }
 
       // ✅ 로그인 상태에서 /login 접근 시 /admin으로 리다이렉트
       if (isLoggedIn && isOnLogin) {
-        console.log("✅ 로그인 상태에서 /login 접근 시 /admin으로 리다이렉트");
-        return NextResponse.redirect(new URL('/admin', nextUrl));
+        // console.log("✅ 로그인 상태에서 /login 접근 시 /admin으로 리다이렉트");
+        const previous = nextUrl.searchParams.get('previous') || '/admin'; // 기본값은 '/admin'
+        return NextResponse.redirect(new URL(previous, nextUrl.origin));
+        // return NextResponse.redirect(new URL('/admin', nextUrl));
       }
 
       // Custom authentication for `/api/flags`
-      if (pathname.startsWith("/api/flags")) {
+      if (isApiFlags) {
         const headerKey = request.headers.get("Authorization")?.split(" ")[1];
         const queryKey = nextUrl.searchParams.get("k123");
 
@@ -41,7 +44,7 @@ export const authConfig = {
         return NextResponse.redirect(new URL('/403', nextUrl)); // 인증 실패
       }
 
-      console.log("authorized return true");
+      // console.log("authorized return true");
       return true;
     },
   },

@@ -1,9 +1,10 @@
 {
   "name": "fff",
-  "version": "251.19.1",
+  "version": "251.19.2",
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "lh": "next dev -H 0.0.0.0 -p 3000",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",

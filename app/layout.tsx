@@ -8,6 +8,7 @@ import { Toaster } from "@/components/ui/toaster"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { NextThemeProvider } from '@/components/theme-provider';
 import { Footer } from "@/app/ui/footer/footer";
+import { SessionProvider } from "next-auth/react";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -90,15 +91,17 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <NextThemeProvider>
-          {children}
-          <Toaster />
-          <Footer />
+        <SessionProvider>
+          <NextThemeProvider>
+            {children}
+            <Toaster />
+            <Footer />
 
-          <TriggerAnalytics />
-          <Analytics />
-          <SpeedInsights />
-        </NextThemeProvider>
+            <TriggerAnalytics />
+            <Analytics />
+            <SpeedInsights />
+          </NextThemeProvider>
+        </SessionProvider>
       </body>
     </html>
   );

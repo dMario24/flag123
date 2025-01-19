@@ -1,6 +1,10 @@
 import NextAuth from 'next-auth';
 import { authConfig } from './auth.config';
 
+// https://authjs.dev/getting-started/installation?framework=Next.js
+// 세션을 활성 상태로 유지하기 위해 선택적 미들웨어를 추가합니다. 이렇게 하면 호출될 때마다 세션 만료 시간이 업데이트됩니다.
+// export { auth as middleware } from "@/auth"; 
+
 export default NextAuth(authConfig).auth;
 
 // https://nextjs.org/docs/app/building-your-application/routing/middleware#matcher

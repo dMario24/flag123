@@ -108,7 +108,7 @@ export default async function Page({ params }: { params: { id: string } }) {
 
               <TooltipIcon tooltip="수정 및 출처 남기기" link={`/flags/${flag.id}/edit`} icon={Edit} iColor="text-lime-600" />
 
-              <TooltipIcon tooltip="신고" link={`/flags/${flag.id}/delete`} icon={Bug} iColor="text-yellow-600" />
+              <TooltipIcon tooltip="신고" link={`/flags/${flag.id}/detail`} icon={Bug} iColor="text-yellow-600" />
               
               {/* 로그인된 사용자만 삭제 버튼 표시 */}
               <IsAdminBtn flagId={flag.id} />
