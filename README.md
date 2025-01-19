@@ -150,6 +150,12 @@ $ npm test
 - https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadata-fields
 - [로컬 데이터베이스가 있는 Next.js 튜토리얼: 빠른 시작 가이드](https://medium.com/@dekadekadeka/next-js-tutorial-with-local-database-quick-start-guide-394d48a0aada)
 - [nextjs edit page](https://nextjs.org/learn/dashboard-app/mutating-data#updating-an-invoice)
+- [nextjs authentication](https://nextjs.org/learn/dashboard-app/adding-authentication)
+- [authentication with nextjs 14](https://medium.com/@rishipardeshi/authentication-with-nextjs-14-and-next-auth-b10fe7eb6407)
 
 ### Errors
 - Application error: a client-side exception has occurred (see the browser console for more information).
+- Error: Cannot find module '/home/ppabam/code/flag123/node_modules/.pnpm/bcrypt@5.1.1/node_modules/bcrypt/lib/binding/napi-v3/bcrypt_lib.node'
+    ```bash
+    $ npm rebuild bcrypt
+    ```

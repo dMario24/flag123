@@ -66,3 +66,27 @@ CREATE TABLE IF NOT EXISTS flag_like_history (
 
 COMMENT ON TABLE flag_like_history IS '깃발 좋아요/취소 기록 테이블';
 COMMENT ON COLUMN flag_like_history.delta_cnt IS '좋아요(1), 좋아요 취소(-1), 마이그래이션에 따른 정수(n)';
+
+CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+CREATE TABLE IF NOT EXISTS users (
+      id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
+      name VARCHAR(255) NOT NULL,
+      email TEXT NOT NULL UNIQUE,
+      password TEXT NOT NULL
+);
+-- const users = [
+--   {
+--     id: '410544b2-4001-4271-9855-fec4b6a6442a',
+--     name: 'User',
+--     email: 'user@nextmail.com',
+--     password: '123456',
+--   },
+-- ];
+
+-- const { default: bcrypt } = await import("bcrypt");
+-- const hashedPassword = await bcrypt.hash('123456', 10);
+-- hashedPassword
+-- '$2b$10$030PAxHRVPIQ3bZzYxib4.syFb8cFXcxGYcgdFDENLOlEGt7iS1Le'
+INSERT INTO users (id, name, email, password)
+VALUES ('410544b2-4001-4271-9855-fec4b6a6442a', 'User', 'user@nextmail.com', '$2b$10$030PAxHRVPIQ3bZzYxib4.syFb8cFXcxGYcgdFDENLOlEGt7iS1Le')
+ON CONFLICT (id) DO NOTHING;
