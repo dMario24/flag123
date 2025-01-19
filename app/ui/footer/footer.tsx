@@ -18,6 +18,14 @@ import A from "./a";
 import IfLink from "./if-link";
 import IfLinkSize from "./if-link-size";
 import { signOut, auth } from '@/auth';
+// import { useRouter } from 'next/router'; // client-side routing
+// import { useRouter } from 'next/navigation';
+
+// async function fetchData() {
+//   const res = await fetch(`${process.env.BASE_URL}/api/auth`);
+//   const data = await res.json();
+//   return data;
+// }
 
 const BASE_CAMP = getBaseCamp();
 const VERSION = getVersion();

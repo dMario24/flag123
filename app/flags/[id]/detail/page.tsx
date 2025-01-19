@@ -7,8 +7,6 @@ import {
   FaFacebookSquare as Facebook,
   FaEdit as Edit,
 } from "react-icons/fa";
-
-import { MdDeleteOutline as Delete } from "react-icons/md";
 import { GiBugNet as Bug } from "react-icons/gi";
 
 // https://react-icons.github.io/react-icons/icons/si/
@@ -18,6 +16,8 @@ import { Metadata } from "next";
 import LikeableImage from "@/app/ui/gallery/likeable-image";
 
 import TooltipIcon from "@/app/ui/detail/reusable-tooltip-icon";
+import IsAdminBtn from "@/app/ui/detail/is-admin-but";
+// import { getToken } from 'next-auth/jwt';
 
 // ✅ Open Graph 메타데이터 동적 생성
 export async function generateMetadata({
@@ -33,6 +33,8 @@ export async function generateMetadata({
   const protocol = headersList.get("x-forwarded-proto") || "http";
   const fullUrl = `${protocol}://${host}/flags/${id}/detail`;
   const description = "계엄배 천하제일 깃발대회"
+
+  // const token = await getToken({ req: request, secret: process.env.AUTH_SECRET });
   return {
     title: `${flag.name} - 상세 정보`,
     description: description,
@@ -107,8 +109,9 @@ export default async function Page({ params }: { params: { id: string } }) {
               <TooltipIcon tooltip="수정 및 출처 남기기" link={`/flags/${flag.id}/edit`} icon={Edit} iColor="text-lime-600" />
 
               <TooltipIcon tooltip="신고" link={`/flags/${flag.id}/delete`} icon={Bug} iColor="text-yellow-600" />
-
-              <TooltipIcon tooltip="삭제" link={`/flags/${flag.id}/delete`} icon={Delete} iColor="text-red-600" />
+              
+              {/* 로그인된 사용자만 삭제 버튼 표시 */}
+              <IsAdminBtn flagId={flag.id} />
 
             </div>
 

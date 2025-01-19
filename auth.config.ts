@@ -41,7 +41,6 @@ export const authConfig = {
         return NextResponse.redirect(new URL('/403', nextUrl)); // 인증 실패
       }
 
-
       console.log("authorized return true");
       return true;
     },
