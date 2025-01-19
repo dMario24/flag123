@@ -152,10 +152,17 @@ $ npm test
 - [nextjs edit page](https://nextjs.org/learn/dashboard-app/mutating-data#updating-an-invoice)
 - [nextjs authentication](https://nextjs.org/learn/dashboard-app/adding-authentication)
 - [authentication with nextjs 14](https://medium.com/@rishipardeshi/authentication-with-nextjs-14-and-next-auth-b10fe7eb6407)
+- [세선 정보 받기 - 로그인 체크](https://authjs.dev/getting-started/session-management/get-session)
 
 ### Errors
 - Application error: a client-side exception has occurred (see the browser console for more information).
 - Error: Cannot find module '/home/ppabam/code/flag123/node_modules/.pnpm/bcrypt@5.1.1/node_modules/bcrypt/lib/binding/napi-v3/bcrypt_lib.node'
     ```bash
     $ npm rebuild bcrypt
+    ```
+- Clear Cache and Rebuild
+    ```bash
+    $ rm -rf node_modules package-lock.json .next
+    $ npm install
+    $ npm run build
     ```

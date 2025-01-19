@@ -8,7 +8,7 @@ import {
   Angry,
   Smartphone,
   GitPullRequestCreateArrow,
-  PowerIcon as LoginIcon,
+  // PowerIcon as LoginIcon,
   PowerOffIcon as LogOutIcon,
   LayoutDashboard as AdminIcon
 } from "lucide-react";
@@ -18,6 +18,7 @@ import A from "./a";
 import IfLink from "./if-link";
 import IfLinkSize from "./if-link-size";
 import { signOut, auth } from '@/auth';
+import LoginLink from "./login-link";
 // import { useRouter } from 'next/router'; // client-side routing
 // import { useRouter } from 'next/navigation';
 
@@ -69,9 +70,10 @@ export async function Footer() {
               </form>
             </div>
           ) : (
-            <Link href="/login" className="flex items-center">
-              <LoginIcon size={24} className="text-blue-500 hover:scale-150" />
-            </Link>
+            // <Link href="/login" className="flex items-center">
+            //   <LoginIcon size={24} className="text-blue-500 hover:scale-150" />
+            // </Link>
+            <LoginLink />
           )}
 
 
