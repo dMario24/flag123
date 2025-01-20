@@ -47,6 +47,16 @@ export function MorphemeSection({ parentName }: MorphemeSectionProps) {
     return null; // 또는 로딩/에러 상태를 표시할 수 있음
   }
 
+  // 하이라이팅 함수
+  const highlightMorphemes = (name: string) => {
+    let highlightedName = name;
+    morphemes.forEach(morpheme => {
+      const regex = new RegExp(morpheme, 'gi');
+      highlightedName = highlightedName.replace(regex, `<span class="bg-yellow-300">${morpheme}</span>`);
+    });
+    return { __html: highlightedName };
+  };
+
   return (
     <section>
       <h2 className="text-lg font-bold mb-4">형태소분석</h2>
@@ -70,7 +80,7 @@ export function MorphemeSection({ parentName }: MorphemeSectionProps) {
         {relatedFlags.map((flag) => (
           <li key={flag.id} className="text-center">
             <LikeableImage flag={flag} />
-            <p className="mt-2 text-pretty">{flag.name}</p>
+            <p className="mt-2 text-pretty" dangerouslySetInnerHTML={highlightMorphemes(flag.name)}></p>
           </li>
         ))}
       </ul>
