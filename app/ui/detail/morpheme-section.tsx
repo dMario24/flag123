@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import LikeableImage from "@/app/ui/gallery/likeable-image";
 import { Flag } from "@/app/lib/definitions";
+import Link from "next/link";
 
 interface MorphemeSectionProps {
   parentName: string;
@@ -49,6 +50,17 @@ export function MorphemeSection({ parentName }: MorphemeSectionProps) {
   return (
     <section>
       <h2 className="text-lg font-bold mb-4">형태소분석</h2>
+      <div className="mb-4">
+        {morphemes.map((morpheme, index) => (
+          <Link 
+            key={index} 
+            href={`/?query=${encodeURIComponent(morpheme)}`} 
+            className="inline-block mr-2 mb-2 py-1 px-2 bg-blue-100 text-blue-800 text-sm font-semibold rounded hover:bg-blue-200 transition-colors duration-200"
+          >
+            #{morpheme}
+          </Link>
+        ))}
+      </div>
       <ul
         className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"
         style={{

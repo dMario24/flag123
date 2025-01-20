@@ -34,13 +34,31 @@ interface ApiResponse {
   };
 }
 
-function extractLemmasFromApiResponse(response: ApiResponse): string[] {
+function extractLemmasFromApiResponse(response: ApiResponse, types: string[] = ['NNG', 'NNB', 'NNP']): string[] {
+  // NNG: 일반 명사
+  // NNB: 의존 명사
+  // NNP: 고유 명사
+  // JKS: 주격 조사
+  // JKO: 목적격 조사
+  // JKB: 부사격 조사
+  // VV: 동사
+  // EF: 종결 어미
+  // EC: 연결 어미
+  // SN: 숫자
+  // SS: 기호
+
   if (!response || !response.return_object || !response.return_object.sentence) {
     return [];
   }
-  return response.return_object.sentence.flatMap(sentence =>
-    sentence.morp ? sentence.morp.map(morp => morp.lemma) : []
+  
+  let lemmas = response.return_object.sentence.flatMap(sentence =>
+    sentence.morp 
+      ? sentence.morp.filter(morp => types.includes(morp.type) && morp.lemma.length > 1).map(morp => morp.lemma) 
+      : []
   );
+
+  // 중복된 값 제거
+  return Array.from(new Set(lemmas));
 }
 
 async function callApi(text: string): Promise<ApiResponse> {
@@ -89,8 +107,9 @@ export async function GET(req: NextRequest) {
     }
 
     const lemmas = extractLemmasFromApiResponse(data);
-    console.log("Lemmas:", lemmas);
+    // console.log("Lemmas:", lemmas);
     return NextResponse.json(lemmas);
+    // return NextResponse.json(data); //debugging
   } catch (error) {
     console.error("Error in GET handler:", error);
     return NextResponse.json(
