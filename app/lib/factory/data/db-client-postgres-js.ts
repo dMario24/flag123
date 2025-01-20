@@ -10,7 +10,7 @@ const CACHE_TIMEOUT = getCacheTimeout();
 
 export class DbClientPostgresJs implements DbClientInterface {
   fetchFlagsByParentId(parentId: number): Promise<Flag[]> {
-    throw new Error('Method not implemented.');
+    throw new Error(`Method not implemented:${parentId}`);
   }
   // https://nextjs.org/docs/app/building-your-application/data-fetching/fetching
   getDbData = unstable_cache(
@@ -23,6 +23,7 @@ export class DbClientPostgresJs implements DbClientInterface {
         COALESCE(SUM(fl.delta_cnt), 0) AS like_count
       FROM 
           flags f
+      WHERE
       LEFT JOIN 
           flag_like_history fl
       ON 

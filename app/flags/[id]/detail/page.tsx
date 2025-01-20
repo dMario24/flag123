@@ -8,7 +8,7 @@ import {
   FaEdit as Edit,
 } from "react-icons/fa";
 import { GiBugNet as Bug } from "react-icons/gi";
-import { ParentImageGrid } from "@/app/ui/detail/ParentImageGrid";
+import ParentImageGrid from "@/app/ui/detail/ParentImageGrid";
 
 // https://react-icons.github.io/react-icons/icons/si/
 // import { SiKakaotalk } from "react-icons/si";

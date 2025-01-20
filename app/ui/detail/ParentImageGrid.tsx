@@ -1,4 +1,4 @@
-import fetchFlagsByParentId from "@/lib/data";
+import { fetchFlagsByParentId } from "@/app/lib/data";
 import LikeableImage from "@/app/ui/gallery/likeable-image";
 
 export default async function ParentImageGrid({ parentId }: { parentId: number }) {
