@@ -9,6 +9,32 @@ import sql from "@/app/lib/postgresjs";
 const CACHE_TIMEOUT = getCacheTimeout();
 
 export class DbClientPostgresJs implements DbClientInterface {
+  fetchFlagsByNameKeywords(keywords: string[]): Promise<Flag[]> {
+    throw new Error('Method not implemented.' + keywords);
+  }
+  async fetchFlagsByParentId(parentId: number): Promise<Flag[]> {
+    const data = await sql<Flag[]>`
+      SELECT 
+        f.id,
+        f.name,
+        f.img_url,
+        COALESCE(SUM(fl.delta_cnt), 0) AS like_count
+      FROM 
+        flags f
+      LEFT JOIN 
+        flag_like_history fl
+      ON 
+        f.id = fl.flag_id
+      WHERE 
+        f.parent_id = ${parentId}
+      GROUP BY 
+        f.id, f.name, f.img_url
+      ORDER BY 
+        f.id DESC`;
+
+    return data;
+  }
+
   // https://nextjs.org/docs/app/building-your-application/data-fetching/fetching
   getDbData = unstable_cache(
     async () => {
@@ -20,6 +46,7 @@ export class DbClientPostgresJs implements DbClientInterface {
         COALESCE(SUM(fl.delta_cnt), 0) AS like_count
       FROM 
           flags f
+      WHERE
       LEFT JOIN 
           flag_like_history fl
       ON 
