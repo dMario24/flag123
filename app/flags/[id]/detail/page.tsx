@@ -18,7 +18,6 @@ import LikeableImage from "@/app/ui/gallery/likeable-image";
 
 import TooltipIcon from "@/app/ui/detail/reusable-tooltip-icon";
 import IsAdminBtn from "@/app/ui/detail/is-admin-but";
-// import { getToken } from 'next-auth/jwt';
 
 // ✅ Open Graph 메타데이터 동적 생성
 export async function generateMetadata({
@@ -35,7 +34,6 @@ export async function generateMetadata({
   const fullUrl = `${protocol}://${host}/flags/${id}/detail`;
   const description = "계엄배 천하제일 깃발대회"
 
-  // const token = await getToken({ req: request, secret: process.env.AUTH_SECRET });
   return {
     title: `${flag.name} - 상세 정보`,
     description: description,
@@ -120,7 +118,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         </CardContent>
       </Card>
 
-      <ParentImageGrid parentId={flag.id} />
+      <ParentImageGrid parentId={flag.id} parentName={flag.name}  />
 
       {/* Map Section */}
       <MapSection latitude={latitude} longitude={longitude} />

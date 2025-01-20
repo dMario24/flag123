@@ -29,6 +29,7 @@ export class DbClientPostgresVercel implements dbClinetInterface.DbClientInterfa
 
     return data.rows;
   }
+  
   // https://nextjs.org/docs/app/building-your-application/data-fetching/fetching
   getDbData = unstable_cache(
     async () => {
