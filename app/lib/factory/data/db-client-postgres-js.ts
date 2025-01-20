@@ -9,6 +9,9 @@ import sql from "@/app/lib/postgresjs";
 const CACHE_TIMEOUT = getCacheTimeout();
 
 export class DbClientPostgresJs implements DbClientInterface {
+  fetchFlagsByParentId(parentId: number): Promise<Flag[]> {
+    throw new Error('Method not implemented.');
+  }
   // https://nextjs.org/docs/app/building-your-application/data-fetching/fetching
   getDbData = unstable_cache(
     async () => {

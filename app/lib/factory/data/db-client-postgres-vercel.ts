@@ -1,4 +1,4 @@
-import { DbClientInterface } from "./db-clinet-interface";
+import * as dbClinetInterface from "./db-clinet-interface";
 import { Flag, FlagMeta } from "@/app/lib/definitions";
 import { unstable_cache } from "next/cache";
 import { getCacheTimeout } from "@/lib/utils";
@@ -6,7 +6,29 @@ import { sql } from "@vercel/postgres";
 
 const CACHE_TIMEOUT = getCacheTimeout();
 
-export class DbClientPostgresVercel implements DbClientInterface {
+export class DbClientPostgresVercel implements dbClinetInterface.DbClientInterface {
+  async fetchFlagsByParentId(parentId: number): Promise<Flag[]> {
+    const data = await sql<Flag>`
+      SELECT 
+        f.id,
+        f.name,
+        f.img_url,
+        COALESCE(SUM(fl.delta_cnt), 0) AS like_count
+      FROM 
+          flags f
+      WHERE f.parent_id = ${parentId}
+      LEFT JOIN 
+          flag_like_history fl
+      ON 
+          f.id = fl.flag_id
+      GROUP BY 
+          f.id, f.name, f.img_url
+      ORDER BY 
+          f.id DESC
+      `;
+
+      return data.rows;
+  }
   // https://nextjs.org/docs/app/building-your-application/data-fetching/fetching
   getDbData = unstable_cache(
     async () => {

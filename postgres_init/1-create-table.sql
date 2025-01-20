@@ -6,6 +6,10 @@ CREATE TABLE IF NOT EXISTS  flags (
     longitude DOUBLE PRECISION NOT NULL
 );
 
+-- 부모 레코드(참조되는 id)가 삭제될 때, 해당 부모를 참조하는 자식 레코드가 존재하면 삭제가 제한됩니다.
+ALTER TABLE flags ADD COLUMN parent_id INTEGER;
+ALTER TABLE flags ADD CONSTRAINT fk_parent_id FOREIGN KEY (parent_id) REFERENCES flags(id) ON DELETE RESTRICT;
+
 COMMENT ON TABLE flags IS 'Flag table storing flag information';
 
 COMMENT ON COLUMN flags.id IS '자동 증가 ID';
