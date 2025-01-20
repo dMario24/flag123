@@ -15,19 +15,19 @@ export class DbClientPostgresVercel implements dbClinetInterface.DbClientInterfa
         f.img_url,
         COALESCE(SUM(fl.delta_cnt), 0) AS like_count
       FROM 
-          flags f
-      WHERE f.parent_id = ${parentId}
+        flags f
       LEFT JOIN 
-          flag_like_history fl
+        flag_like_history fl
       ON 
-          f.id = fl.flag_id
+        f.id = fl.flag_id
+      WHERE 
+        f.parent_id = ${parentId}
       GROUP BY 
-          f.id, f.name, f.img_url
+        f.id, f.name, f.img_url
       ORDER BY 
-          f.id DESC
-      `;
+        f.id DESC`;
 
-      return data.rows;
+    return data.rows;
   }
   // https://nextjs.org/docs/app/building-your-application/data-fetching/fetching
   getDbData = unstable_cache(
