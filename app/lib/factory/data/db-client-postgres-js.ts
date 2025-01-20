@@ -9,6 +9,9 @@ import sql from "@/app/lib/postgresjs";
 const CACHE_TIMEOUT = getCacheTimeout();
 
 export class DbClientPostgresJs implements DbClientInterface {
+  fetchFlagsByNameKeywords(keywords: string[]): Promise<Flag[]> {
+    throw new Error('Method not implemented.' + keywords);
+  }
   async fetchFlagsByParentId(parentId: number): Promise<Flag[]> {
     const data = await sql<Flag[]>`
       SELECT 

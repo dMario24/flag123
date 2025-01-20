@@ -18,3 +18,7 @@ export async function fetchFlagById(id: string): Promise<FlagMeta> {
 export async function fetchFlagsByParentId(parentId: number): Promise<Flag[]> { 
   return await dbClient.fetchFlagsByParentId(parentId);
 }
+
+export async function fetchFlagsByNameKeywords(keywords: string[]): Promise<Flag[]> {
+  return await dbClient.fetchFlagsByNameKeywords(keywords);
+}

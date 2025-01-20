@@ -153,6 +153,9 @@ $ npm test
 - [nextjs authentication](https://nextjs.org/learn/dashboard-app/adding-authentication)
 - [authentication with nextjs 14](https://medium.com/@rishipardeshi/authentication-with-nextjs-14-and-next-auth-b10fe7eb6407)
 - [세선 정보 받기 - 로그인 체크](https://authjs.dev/getting-started/session-management/get-session)
+- [한글 자음 모음 분리 자바스크립트 라이브러리 Hangul.js](https://github.com/e-/Hangul.js/)
+- [한글 맞춤법 검사기](https://www.npmjs.com/package/hanspell)
+- [ETRI Open AI API/Data Service, Supported by MSIT](https://aiopen.etri.re.kr/keyCreation)
 
 ### Errors
 - Application error: a client-side exception has occurred (see the browser console for more information).

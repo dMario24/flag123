@@ -195,6 +195,14 @@ export default function SortableGallery({ filteredFlags }: FlagsProps) {
     };
   }, []); // 빈 의존성 배열: 컴포넌트 마운트/언마운트 시 실행
 
+  // 로컬 스토리지에 데이터 저장
+  useEffect(() => {
+    if (filteredFlags && filteredFlags.length > 0) {
+      localStorage.setItem('flags', JSON.stringify(filteredFlags));
+      console.log('Flags saved to local storage');
+    }
+  }, [filteredFlags]); // filteredFlags가 변경될 때마다 실행
+
   return (
     <section className="container mx-auto px-1 py-1">
       <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4">
