@@ -37,7 +37,7 @@ export default async function ParentImageGrid({
       )}
 
       {/* Section 2: 형태소분석 */}
-      <MorphemeSection parentName={parentName} />
+      <MorphemeSection parentName={parentName} parentId={parentId} />
     </div>
   );
 }

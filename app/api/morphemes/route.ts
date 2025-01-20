@@ -51,7 +51,7 @@ function extractLemmasFromApiResponse(response: ApiResponse, types: string[] = [
     return [];
   }
   
-  let lemmas = response.return_object.sentence.flatMap(sentence =>
+  const lemmas = response.return_object.sentence.flatMap(sentence =>
     sentence.morp 
       ? sentence.morp.filter(morp => types.includes(morp.type) && morp.lemma.length > 1).map(morp => morp.lemma) 
       : []
