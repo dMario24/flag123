@@ -54,7 +54,7 @@ export function MorphemeSection({ parentName, parentId }: MorphemeSectionProps) 
         let highlightedName = name;
         morphemes.forEach(morpheme => {
             const regex = new RegExp(morpheme, 'gi');
-            highlightedName = highlightedName.replace(regex, `<span class="bg-yellow-300">${morpheme}</span>`);
+            highlightedName = highlightedName.replace(regex, `<span class="bg-yellow-300 dark:bg-yellow-700">${morpheme}</span>`);
         });
         return { __html: highlightedName };
     };
