@@ -3,7 +3,6 @@ import { Flag, FlagMeta } from "@/app/lib/definitions";
 import { unstable_cache } from "next/cache";
 import { getCacheTimeout } from "@/lib/utils";
 
-import { getQueyThatfetchFlagById } from "./utils-query";
 import sql from "@/app/lib/postgresjs";
 
 const CACHE_TIMEOUT = getCacheTimeout();
@@ -46,7 +45,6 @@ export class DbClientPostgresJs implements DbClientInterface {
         COALESCE(SUM(fl.delta_cnt), 0) AS like_count
       FROM 
           flags f
-      WHERE
       LEFT JOIN 
           flag_like_history fl
       ON 
@@ -108,9 +106,30 @@ export class DbClientPostgresJs implements DbClientInterface {
   }
 
   async fetchFlagById(id: string): Promise<FlagMeta> {
-    const query = getQueyThatfetchFlagById(id);
     try {
-      const data = await sql<FlagMeta[]>`${query}`;
+      const data = await sql<FlagMeta[]> `
+        SELECT 
+          f.id,
+          f.name,
+          f.img_url,
+          COALESCE(SUM(fl.delta_cnt), 0) AS like_count,
+          f.latitude,
+          f.longitude,
+          COALESCE(fm.source, '🐟') AS source
+        FROM 
+          flags f
+        LEFT JOIN 
+          flag_like_history fl
+        ON 
+          f.id = fl.flag_id
+        LEFT JOIN
+          flag_metadata fm
+        ON 
+          f.id = fm.flag_id
+        WHERE 
+          f.id = ${id}
+        GROUP BY 
+          f.id, fm.source`;
       return data[0];
     } catch (error) {
       console.error('Database Error:', error);
