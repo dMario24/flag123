@@ -17,7 +17,7 @@ export default async function ParentImageGrid({
       {/* Section 1: 소속 이미지 */}
       {childImages.length > 0 ? (
         <section className="mb-8">
-          <h2 className="text-lg font-bold mb-4">소속 이미지</h2>
+          <h2 className="text-lg font-bold mb-4">🧑🏼‍🤝‍🧑🏻👭🏻 동지 깃발 🏳️‍🌈</h2>
           <ul
             className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4"
             style={{

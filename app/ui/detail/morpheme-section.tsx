@@ -62,7 +62,7 @@ export function MorphemeSection({ parentName, parentId }: MorphemeSectionProps) 
     return (
         <section>
             <h2 className="text-lg font-bold mb-4">
-                형태<span className="animate-pulse delay-1000">🐮</span>분석
+            #️⃣#️⃣ 형태<span className="animate-pulse delay-1000">🐮</span>분석
             </h2>
             <div className="mb-4">
                 {morphemes.map((morpheme, index) => (
