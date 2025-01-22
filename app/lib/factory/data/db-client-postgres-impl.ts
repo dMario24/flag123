@@ -2,18 +2,25 @@ import * as dbClinetInterface from "./db-clinet-interface";
 import { Flag, FlagMeta } from "@/app/lib/definitions";
 import { unstable_cache } from "next/cache";
 import { getCacheTimeout } from "@/lib/utils";
-import { sql } from "@vercel/postgres";
+import { SqlInterface } from "@/app/lib/factory/data/sql-interface";
 
 const CACHE_TIMEOUT = getCacheTimeout();
 
-export class DbClientPostgresVercel implements dbClinetInterface.DbClientInterface {
+export class DbClientPostgresImpl implements dbClinetInterface.DbClientInterface {
+
+  private readonly sql: SqlInterface;
+
+  constructor(sql: SqlInterface) {
+    this.sql = sql
+  }
+
   async fetchFlagsByNameKeywords(keywords: string[]): Promise<Flag[]> {
     if (keywords.length === 0) {
       return [];  // Return empty array if no keywords
     }
 
     // keywords 배열을 기반으로 LIKE 조건 생성
-    const conditions = keywords.map((keyword) => sql`f.name LIKE ${'%' + keyword + '%'}`);
+    const conditions = keywords.map((keyword) => this.sql`f.name LIKE ${'%' + keyword + '%'}`);
 
     // 조건을 OR로 결합
     const combinedConditions = conditions.reduce((acc, condition, index) => {
@@ -21,7 +28,7 @@ export class DbClientPostgresVercel implements dbClinetInterface.DbClientInterfa
     }, '').replace(/\n/g, ' '); // SQL에서 줄바꿈 제거
 
     // SQL 쿼리 실행
-    const data = await sql<Flag>`
+    const data = await this.sql<Flag>`
     SELECT 
       f.id,
       f.name,
@@ -44,7 +51,7 @@ export class DbClientPostgresVercel implements dbClinetInterface.DbClientInterfa
   }
 
   async fetchFlagsByParentId(parentId: number): Promise<Flag[]> {
-    const data = await sql<Flag>`
+    const data = await this.sql<Flag>`
       SELECT 
         f.id,
         f.name,
@@ -69,7 +76,7 @@ export class DbClientPostgresVercel implements dbClinetInterface.DbClientInterfa
   // https://nextjs.org/docs/app/building-your-application/data-fetching/fetching
   getDbData = unstable_cache(
     async () => {
-      const data = await sql<Flag>`
+      const data = await this.sql<Flag>`
       SELECT 
         f.id,
         f.name,
@@ -114,7 +121,7 @@ export class DbClientPostgresVercel implements dbClinetInterface.DbClientInterfa
    */
   async insertFlag(flag: Omit<Flag, "id" | "like_count">): Promise<Flag> {
     try {
-      const result = await sql<Flag>`
+      const result = await this.sql<Flag>`
       INSERT INTO flags(name, img_url, latitude, longitude)
       VALUES(
     ${flag.name},
@@ -137,7 +144,7 @@ export class DbClientPostgresVercel implements dbClinetInterface.DbClientInterfa
 
   async fetchFlagById(id: string) {
     try {
-      const data = await sql<FlagMeta>`
+      const data = await this.sql<FlagMeta>`
       SELECT 
         f.id,
         f.name,
