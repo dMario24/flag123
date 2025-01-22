@@ -1,4 +1,4 @@
-import { DbClientInterface } from "./db-clinet-interface";
+import { DbClientInterface } from "./db-client-interface";
 import { DbClientPostgresJs } from "./db-client-postgres-js";
 import { DbClientPostgresVercel } from "./db-client-postgres-vercel";
 
