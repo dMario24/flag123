@@ -1,4 +1,4 @@
-import * as dbClinetInterface from "./db-clinet-interface";
+import { DbClientInterface } from "./db-client-interface";
 import { Flag, FlagMeta } from "@/app/lib/definitions";
 import { unstable_cache } from "next/cache";
 import { getCacheTimeout } from "@/lib/utils";
@@ -6,7 +6,7 @@ import { sql } from "@vercel/postgres";
 
 const CACHE_TIMEOUT = getCacheTimeout();
 
-export class DbClientPostgresVercel implements dbClinetInterface.DbClientInterface {
+export class DbClientPostgresVercel implements DbClientInterface {
   async fetchFlagsByNameKeywords(keywords: string[]): Promise<Flag[]> {
     if (keywords.length === 0) {
       return [];  // Return empty array if no keywords
