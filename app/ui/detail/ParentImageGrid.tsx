@@ -1,6 +1,6 @@
 import { fetchFlagsByParentId } from "@/app/lib/data";
 import LikeableImage from "@/app/ui/gallery/likeable-image";
-import { MorphemeSection } from "./morpheme-section";
+// import { MorphemeSection } from "./morpheme-section";
 
 export default async function ParentImageGrid({
   parentId,
@@ -11,6 +11,7 @@ export default async function ParentImageGrid({
 }) {
   // Fetch child images by parentId
   const childImages = await fetchFlagsByParentId(parentId);
+  console.warn("Morpheme analysis is temporarily closed -> parentName:", parentName);
 
   return (
     <div className="w-full max-w-2xl mx-auto px-4 py-4">
