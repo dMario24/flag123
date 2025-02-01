@@ -131,14 +131,15 @@ $ npm test
 - https://vercel.com/docs/cli/env
 
 ### ⚓ Dockerizing
+- [install docker on ubuntu(wsl)](https://docs.docker.com/engine/install/ubuntu/)
 - The .env.local file DATABASE_CLIENT needs to be changed.
     ```bash
-    # docker compose down --volumes --remove-orphans
+    # sudo docker compose down --volumes --remove-orphans
     # sudo rm -rf postgres_data
 
-    $ docker compose up -d db adminer
-    $ docker compose build web
-    $ docker compose up -d web
+    $ sudo docker compose up -d db adminer
+    $ sudo docker compose build web
+    $ sudo docker compose up -d web
     ```
 
 ### 🔖 Ref
