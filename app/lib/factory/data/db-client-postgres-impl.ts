@@ -1,4 +1,4 @@
-import * as dbClinetInterface from "./db-clinet-interface";
+import * as dbClinetInterface from "./db-client-interface";
 import { Flag, FlagMeta } from "@/app/lib/definitions";
 import { unstable_cache } from "next/cache";
 import { getCacheTimeout } from "@/lib/utils";

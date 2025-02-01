@@ -1,4 +1,4 @@
-import { DbClientInterface } from "./db-clinet-interface";
+import { DbClientInterface } from "./db-client-interface";
 import { DbClientPostgresImpl } from "./db-client-postgres-impl";
 import { Primitive, SqlInterface } from "@/app/lib/factory/data/sql-interface";
 import { FieldDef, sql as vercelSql } from "@vercel/postgres";
