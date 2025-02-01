@@ -43,7 +43,7 @@ export function MorphemeSection({ parentName, parentId }: MorphemeSectionProps) 
             );
             setRelatedFlags(filteredFlags);
         }
-    }, [morphemes]);
+    }, [morphemes, parentId]);
 
     if (relatedFlags.length === 0) {
         return null; // 또는 로딩/에러 상태를 표시할 수 있음
