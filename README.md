@@ -84,8 +84,6 @@
 - Alternatively, you can use the local DBMS using the Dockerizing part below. The setting file DATABASE_CLIENT needs to be changed.
 
 
-
-
 ### 🌱 Env
 - Rename env.dummy to .env.local. Make sure the file is not pushed to the public GitHub repository.
 - To avoid using analytics and statistics by connecting to Google Firebase, delete analytics.ts.
@@ -97,6 +95,16 @@
 ```
 $ npm install
 $ npm run dev
+```
+
+### Dev Python API
+```bash
+$ pyenv global
+3.10.12
+# $ python -m venv venv
+$ source venv/bin/activate
+$ pip install -r requirements.txt
+$ uvicorn api.index:app --reload
 ```
 
 ### Test
