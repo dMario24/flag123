@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest",
-    "fastapi-dev": "pip install -r requirements.txt && python -m uvicorn api.py.index:app --reload"
+    "fastapi-dev": "pip install -r requirements.txt && python -m uvicorn api.index:app --reload"
   },
   "dependencies": {
     "@fingerprintjs/fingerprintjs": "^4.5.1",
