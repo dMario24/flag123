@@ -99,10 +99,14 @@ $ npm run dev
 
 ### Dev Python API
 ```bash
-$ pyenv global
-3.10.12
-# $ python -m venv venv
+$ pyenv versions
+  system
+  3.10.12
+* 3.12.8 (set by /home/ppabam/.pyenv/version)
+$ python -m venv venv
 $ source venv/bin/activate
+$ python -V
+Python 3.10.12
 $ pip install -r requirements.txt
 $ uvicorn api.index:app --reload
 ```
