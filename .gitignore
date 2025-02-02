@@ -40,3 +40,7 @@ next-env.d.ts
 public/img/uploads
 postgres_data/
 postgres_ssl/certs/certstrap
+venv/
+__pycache__/
+*.pyc
+*.pyo

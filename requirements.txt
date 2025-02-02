@@ -1,0 +1,4 @@
+fastapi==0.115.0
+uvicorn[standard]==0.30.6
+korean-age-calculator==1.0.0
+flag-morph==1.0.1
