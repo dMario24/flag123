@@ -40,3 +40,6 @@ next-env.d.ts
 public/img/uploads
 postgres_data/
 postgres_ssl/certs/certstrap
+
+# Sentry Config File
+.env.sentry-build-plugin
