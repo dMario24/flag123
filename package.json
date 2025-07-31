@@ -1,6 +1,6 @@
 {
   "name": "fff",
-  "version": "252.2.2",
+  "version": "257.31.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -11,6 +11,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "@amplitude/analytics-browser": "^2.21.1",
     "@fingerprintjs/fingerprintjs": "^4.5.1",
     "@heroicons/react": "^2.2.0",
     "@neondatabase/serverless": "^0.10.4",
