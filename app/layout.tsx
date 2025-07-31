@@ -10,13 +10,8 @@ import { NextThemeProvider } from '@/components/theme-provider';
 import { Footer } from "@/app/ui/footer/footer";
 import { SessionProvider } from "next-auth/react";
 import * as amplitude from '@amplitude/analytics-browser';
-import { autocapturePlugin } from '@amplitude/plugin-autocapture-browser';
 
-amplitude.init('ae657d9859f5fcfab5c2eda4572140c0', {
-  autocapture: {
-    elementInteractions: true
-  }
-});
+amplitude.init('ae657d9859f5fcfab5c2eda4572140c0', {"autocapture":true});
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
