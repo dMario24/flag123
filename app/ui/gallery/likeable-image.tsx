@@ -8,6 +8,7 @@ import { Heart, Info } from "lucide-react";
 import Link from "next/link";
 import { saveLinked } from "./saveLinked";
 import { getImageQuality } from "@/lib/utils";
+import * as amplitude from '@amplitude/analytics-browser';
 
 const IMAGE_QUALITY = getImageQuality();
 
@@ -45,6 +46,8 @@ export default function LikeableImage({
 
     // saver one-by-one
     saveLinked();
+
+    amplitude.track('toggleLike');
   };
 
 
